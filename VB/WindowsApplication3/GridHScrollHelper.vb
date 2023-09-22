@@ -1,12 +1,12 @@
-﻿Imports System
-Imports System.Collections.Generic
-Imports System.Text
+Imports System
 Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraGrid.Drawing
 Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
 
 Namespace WindowsApplication3
+
     Public Class GridHScrollHelper
+
         Private view As GridView
 
         Public Sub New(ByVal view As GridView)
@@ -14,25 +14,20 @@ Namespace WindowsApplication3
         End Sub
 
         Public Sub EnableScrollByColumns()
-            AddHandler Me.view.LeftCoordChanged, AddressOf OnLeftCoordChanged
+            AddHandler view.LeftCoordChanged, AddressOf OnLeftCoordChanged
         End Sub
 
         Private Sub OnLeftCoordChanged(ByVal sender As Object, ByVal e As EventArgs)
-            If leftCoordChanged <> 0 Then
-                Return
-            End If
+            If leftCoordChanged <> 0 Then Return
             BeginScroll()
             Try
                 Dim firstColumnInfo As GridColumnInfoArgs = GetFirstNonFixedColumnInfo()
-                If firstColumnInfo Is Nothing Then
-                    Return
-                End If
+                If firstColumnInfo Is Nothing Then Return
                 Dim index As Integer = ViewInfo.ColumnsInfo.IndexOf(firstColumnInfo)
                 If IsRight Then
                     If ScrollToNextColumn Then
                         If index < ViewInfo.ColumnsInfo.Count - 1 Then
-                            index += 1
-                            Dim nextColumnInfo As GridColumnInfoArgs = ViewInfo.ColumnsInfo(index)
+                            Dim nextColumnInfo As GridColumnInfoArgs = ViewInfo.ColumnsInfo(Threading.Interlocked.Increment(index))
                             SetLeftCoord(nextColumnInfo.Bounds.Right - Indent - 2, True)
                         End If
                     Else
@@ -45,13 +40,14 @@ Namespace WindowsApplication3
                         SetLeftCoord(view.LeftCoord, False)
                     End If
                 End If
+
                 oldLeftCoord = view.LeftCoord
             Finally
                 EndScroll()
             End Try
-
         End Sub
-        Private ReadOnly Property Indent() As Integer
+
+        Private ReadOnly Property Indent As Integer
             Get
                 Return ViewInfo.ViewRects.FixedLeft.Width + ViewInfo.ViewRects.IndicatorWidth
             End Get
@@ -60,10 +56,9 @@ Namespace WindowsApplication3
         Private Function GetFirstNonFixedColumnInfo() As GridColumnInfoArgs
             Dim cArgs As GridColumnInfoArgs = Nothing
             For Each args As GridColumnInfoArgs In ViewInfo.ColumnsInfo
-                If args.Column IsNot Nothing AndAlso args.Column.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.None AndAlso args.Bounds.Left <= Indent Then
-                    cArgs = args
-                End If
-            Next args
+                If args.Column IsNot Nothing AndAlso args.Column.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.None AndAlso args.Bounds.Left <= Indent Then cArgs = args
+            Next
+
             Return cArgs
         End Function
 
@@ -85,24 +80,23 @@ Namespace WindowsApplication3
             leftCoordChanged += 1
         End Sub
 
-        Private ReadOnly Property ViewInfo() As GridViewInfo
+        Private ReadOnly Property ViewInfo As GridViewInfo
             Get
                 Return TryCast(view.GetViewInfo(), GridViewInfo)
             End Get
         End Property
 
-        Private ReadOnly Property IsRight() As Boolean
+        Private ReadOnly Property IsRight As Boolean
             Get
                 Return view.LeftCoord > oldLeftCoord
             End Get
         End Property
 
-        Private ReadOnly Property ScrollToNextColumn() As Boolean
+        Private ReadOnly Property ScrollToNextColumn As Boolean
             Get
                 Dim args As GridColumnInfoArgs = GetFirstNonFixedColumnInfo()
                 Return args.Bounds.Right <= Indent
             End Get
         End Property
-
     End Class
 End Namespace
