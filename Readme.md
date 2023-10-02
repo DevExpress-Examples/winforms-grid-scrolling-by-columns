@@ -6,7 +6,7 @@
 
 # WinForms Data Grid - Scroll by columns
 
-This example handles the [GridView.LeftCoordChanged](https://docs.devexpress.com/WindowsForms/DevExpress.XtraGrid.Views.Grid.GridView.LeftCoordChanged) how to scroll by columns:
+This example handles the [GridView.LeftCoordChanged](https://docs.devexpress.com/WindowsForms/DevExpress.XtraGrid.Views.Grid.GridView.LeftCoordChanged) event to scroll by columns:
 
 ![WinForms Data Grid - Scroll by columns](https://raw.githubusercontent.com/DevExpress-Examples/how-to-implement-scrolling-by-columns-in-the-grid-e2481/13.1.4%2B/media/winforms-grid-scroll-by-column.gif)
 
