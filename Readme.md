@@ -17,7 +17,7 @@ This example handles the [GridView.LeftCoordChanged](https://docs.devexpress.com
 * [Form1.cs](./CS/WindowsApplication3/Form1.cs) (VB: [Form1.vb](./VB/WindowsApplication3/Form1.vb))
 * [GridHScrollHelper.cs](./CS/WindowsApplication3/GridHScrollHelper.cs) (VB: [GridHScrollHelper.vb](./VB/WindowsApplication3/GridHScrollHelper.vb))
 <!-- feedback -->
-## Does this example address your development requirements/objectives?
+## Does This Example Address Your Development Requirements/Objectives?
 
 [<img src="https://www.devexpress.com/support/examples/i/yes-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=winforms-grid-scrolling-by-columns&~~~was_helpful=yes) [<img src="https://www.devexpress.com/support/examples/i/no-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=winforms-grid-scrolling-by-columns&~~~was_helpful=no)
 
